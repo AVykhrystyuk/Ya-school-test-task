@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="author" content="Alexey Vykhrystyuk <avykhrystyuk@gmail.com>">
+
+    <title>Тестовое задание для школы Node.js</title>
+
+    <style type="text/css">
+        input.error {
+            border: 1px solid red;
+        }
+    </style>
+</head>
+
+<body>
+    <form id="myForm" action="responses/success.json">
+        <input type="text" name="fio" placeholder="ФИО">
+        <input type="email" name="email" placeholder="Email">
+        <input type="tel" name="phone" placeholder="Телефон">
+        <button id="submitButton">Отправить</button>
+    </form>
+    <div id="resultContainer"></div>
+
+    <script src="index.js"></script>
+</body>
+
+</html>
