@@ -50,6 +50,54 @@ const MyForm = {};
         });
     }
 
+    function validateEmail(email) {
+        let emailParts = email.split("@");
+        if (emailParts.length !== 2) {
+            return false;
+        }
+
+        let local = emailParts[0];
+        let domain = emailParts[1];
+
+        const maxLocalPartLength = 64;      
+        if (local.length > maxLocalPartLength) {
+            return false;
+        }
+
+        const localPartRegexp = /^([\w-]+(?:\.[\w-]+)*)$/;        
+        if (!localPartRegexp.test(local)) {
+            return false;
+        }
+
+        const allowedDomains = ['ya.ru', 'yandex.ru', 'yandex.ua', 'yandex.by', 'yandex.kz', 'yandex.com'];
+        return allowedDomains.includes(domain);
+    }
+
+    function validateFio(fio) {
+        const wordsLength = fio.split(/\s+/).length;
+        const requiredWordsCount = 3;
+
+        if (wordsLength !== requiredWordsCount) {
+            return false;
+        }
+
+        const charactersRegexp = new RegExp(/^[a-z а-я]*$/, "i");
+        return charactersRegexp.test(fio);
+    }
+
+    function validatePhone(phone) {
+        const phoneRegexp = /^\+7\(\d{3}\)\d{3}(?:-\d{2}){2}$/;
+        const phoneMaxDigitsSum = 30;
+
+        if (!phoneRegexp.test(phone)) {
+            return false;
+        }
+
+        let phoneDigits = phone.match(/\d/g);
+        let phoneDigitsSum = phoneDigits.reduce((a, b) => +a + +b);
+        return phoneDigitsSum <= phoneMaxDigitsSum;
+    }
+
     function submit() {
         for (let input of inputElements) {
             input.classList.remove('error');
@@ -92,32 +140,15 @@ const MyForm = {};
     function validate() {
         const invalidElements = [];
 
-        const fioMaxWordsCount = 3;
-        const fioCharactersPattern = new RegExp(/^[a-z а-я]*$/, "i");
-        const fioValue = fioElement.value.trim();
-        const fioWordsLength = fioValue.split(/\s+/).length;
-        if (fioWordsLength !== fioMaxWordsCount || !fioCharactersPattern.test(fioValue)) {
+        if (!validateFio(fioElement.value.trim())) {
             invalidElements.push(fioElement.name);
         }
 
-        const allowedDomains = ['ya.ru', 'yandex.ru', 'yandex.ua', 'yandex.by', 'yandex.kz', 'yandex.com'];
-        const emailValue = emailElement.value.trim();
-        const emailDomain = emailValue.replace(/.*@/, '');
-        if (!allowedDomains.includes(emailDomain)) {
+        if (!validateEmail(emailElement.value.trim())) {
             invalidElements.push(emailElement.name);
         }
 
-        const phonePattern = new RegExp(/^\+7\(\d{3}\)\d{3}(?:-\d{2}){2}$/);
-        const phoneMaxDigitsSum = 30;
-        const phoneValue = phoneElement.value.trim();
-
-        if (phonePattern.test(phoneValue)) {
-            let phoneDigits = phoneValue.match(/\d/g);
-            let phoneDigitsSum = phoneDigits.reduce((a, b) => +a + +b);
-            if (phoneDigitsSum > phoneMaxDigitsSum) {
-                invalidElements.push(phoneElement.name);
-            }
-        } else {
+        if (!validatePhone(phoneElement.value.trim())) {
             invalidElements.push(phoneElement.name);
         }
 
@@ -130,7 +161,7 @@ const MyForm = {};
     function getData() {
         let data = {};
         for (let input of inputElements) {
-            data[input.name] = input.value;
+            data[input.name] = input.value.trim();
         };
         return data;
     }
@@ -139,7 +170,7 @@ const MyForm = {};
         for (let input of inputElements) {
             if (data.hasOwnProperty(input.name)) {
                 let value = data[input.name];
-                input.value = isNil(value) ? "" : value;
+                input.value = isNil(value) ? "" : value.trim();
             }
         }
     }
