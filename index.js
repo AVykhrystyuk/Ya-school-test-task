@@ -70,7 +70,7 @@ const MyForm = {};
         }
 
         const allowedDomains = ['ya.ru', 'yandex.ru', 'yandex.ua', 'yandex.by', 'yandex.kz', 'yandex.com'];
-        return allowedDomains.includes(domain);
+        return allowedDomains.includes(domain.toLowerCase());
     }
 
     function validateFio(fio) {
