@@ -47,7 +47,7 @@ validates fields and sends an ajax request if validation is completed. Called by
 - `/index.html` - page layout;
 - `/index.js` - all client page logic.
 
-### OTher
+### Other
 You can use any third-party frameworks and libraries to complete the task.
 You can also use any modern specifications implemented in the latest versions of the Chrome browser.
 The code should work locally without the need for Internet access.
