@@ -48,6 +48,6 @@ validates fields and sends an ajax request if validation is completed. Called by
 - `/index.js` - all client page logic.
 
 ### Other
-You can use any third-party frameworks and libraries to complete the task.
-You can also use any modern specifications implemented in the latest versions of the Chrome browser.
-The code should work locally without the need for Internet access.
+- Any third-party frameworks and libraries can be used to complete the task.
+- Any modern language specificationsimplemented in the latest versions of the Chrome browser can be used.
+- The code must work locally without the need for Internet access.
